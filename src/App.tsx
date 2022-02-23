@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { Title, UploadForm , ImageGrid} from './components'
+import {Title, UploadForm , ImageGrid} from './components';
 
 function App() {
   return (

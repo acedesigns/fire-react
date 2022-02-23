@@ -13,7 +13,6 @@ import { motion } from 'framer-motion';
 
 const ImageGrid = () => {
 	const { docs } = useFireStore('images');
-
 	return (
 		<div className='img-grid'>
 			{docs.length > 0 ? docs && docs.map((doc: any) => (
@@ -25,7 +24,7 @@ const ImageGrid = () => {
 					initial={{opacity:0}}
 					animate={{opacity:1}}
 					transition={{delay: 2}}
-					src={doc.url} title='Hey' alt='heya' />
+					src={doc.url} title={doc.imgName} alt={doc.imgName} />
 				</motion.div>
 			)) : <div> <img src='https://via.placeholder.com/200x200.png?text=No+Imge+Yet' alt='Nothing  yet' /> </div>}
 			

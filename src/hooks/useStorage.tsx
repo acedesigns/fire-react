@@ -9,8 +9,8 @@
 
 import { useEffect, useState } from 'react';
 import { app, timeStamp } from '../firebase/config';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { ref, getStorage, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { getFirestore, collection, addDoc } from "firebase/firestore"
 
 const useStorage = (file: File) => {
 	const [progress, setProgress] = useState<number>(0);
@@ -24,6 +24,7 @@ const useStorage = (file: File) => {
 
 		const storageRef = ref(storage, file.name);
 		const uploadTask = uploadBytesResumable(storageRef, file);
+		console.log(file)
 
 		// Get Images
 		//const querySnapshot = getDocs(collection(collectionRef, "images"));
@@ -42,7 +43,8 @@ const useStorage = (file: File) => {
 					try {
 						addDoc(collection(collectionRef, "images"), {
 							url: downloadURL,
-							createdAt: timeStamp
+							createdAt: timeStamp,
+							imgName: file.name.split('.').slice(0, -1).join('.').replace(/[&\\/\\#,+()$~%.'":*?<>{}]/g, '-')
 						});
 					} catch (error) {
 						console.error("Error adding document: ", error);
